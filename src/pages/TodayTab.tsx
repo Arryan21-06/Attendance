@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { format, addDays, subDays, getDay } from 'date-fns';
-import { ChevronLeft, ChevronRight, CheckCircle2, XCircle, UserMinus, Tent } from 'lucide-react';
-import { clsx } from 'clsx';
+import { ChevronLeft, ChevronRight, Tent } from 'lucide-react';
 import { useSubjects, useTimetableSlots, useAttendanceLogs, addAttendanceLog } from '../hooks/useStore';
 import type { AttendanceStatus } from '../db/db';
+import ClassAttendanceCard from '../components/ClassAttendanceCard';
 
 export default function TodayTab() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -100,77 +100,13 @@ export default function TodayTab() {
               if (!subject) return null;
 
               return (
-                <div key={slot.id} className="bg-white/70 backdrop-blur-md rounded-2xl p-4 shadow-sm border border-white/50 relative overflow-hidden">
-                  {/* Left accent bar */}
-                  <div className={clsx("absolute left-0 top-0 bottom-0 w-1.5", subject.color)} />
-                  
-                  <div className="pl-2 mb-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-bold text-slate-800 text-lg leading-tight">{subject.code}</h3>
-                        <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mt-0.5">{subject.type}</p>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-sm font-semibold text-slate-700">{slot.startTime} - {slot.endTime}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 4-Tap Actions */}
-                  <div className="grid grid-cols-4 gap-2 mt-4">
-                    <button
-                      onClick={() => handleStatusClick(slot.id, subject.id, 'present')}
-                      className={clsx(
-                        "flex flex-col items-center justify-center p-2 rounded-xl transition-all duration-150 active:scale-95 border",
-                        log?.status === 'present' 
-                          ? "bg-emerald-100 border-emerald-200 text-emerald-700 shadow-sm" 
-                          : "bg-slate-50/50 border-slate-100 text-slate-400 hover:bg-slate-100"
-                      )}
-                    >
-                      <CheckCircle2 className="w-6 h-6 mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Present</span>
-                    </button>
-                    
-                    <button
-                      onClick={() => handleStatusClick(slot.id, subject.id, 'absent')}
-                      className={clsx(
-                        "flex flex-col items-center justify-center p-2 rounded-xl transition-all duration-150 active:scale-95 border",
-                        log?.status === 'absent' 
-                          ? "bg-rose-100 border-rose-200 text-rose-700 shadow-sm" 
-                          : "bg-slate-50/50 border-slate-100 text-slate-400 hover:bg-slate-100"
-                      )}
-                    >
-                      <XCircle className="w-6 h-6 mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Absent</span>
-                    </button>
-                    
-                    <button
-                      onClick={() => handleStatusClick(slot.id, subject.id, 'teacher_absent')}
-                      className={clsx(
-                        "flex flex-col items-center justify-center p-2 rounded-xl transition-all duration-150 active:scale-95 border",
-                        log?.status === 'teacher_absent' 
-                          ? "bg-amber-100 border-amber-200 text-amber-700 shadow-sm" 
-                          : "bg-slate-50/50 border-slate-100 text-slate-400 hover:bg-slate-100"
-                      )}
-                    >
-                      <UserMinus className="w-6 h-6 mb-1" />
-                      <span className="text-[10px] font-bold uppercase text-center leading-none">No Prof</span>
-                    </button>
-                    
-                    <button
-                      onClick={() => handleStatusClick(slot.id, subject.id, 'holiday')}
-                      className={clsx(
-                        "flex flex-col items-center justify-center p-2 rounded-xl transition-all duration-150 active:scale-95 border",
-                        log?.status === 'holiday' 
-                          ? "bg-sky-100 border-sky-200 text-sky-700 shadow-sm" 
-                          : "bg-slate-50/50 border-slate-100 text-slate-400 hover:bg-slate-100"
-                      )}
-                    >
-                      <Tent className="w-6 h-6 mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Holiday</span>
-                    </button>
-                  </div>
-                </div>
+                <ClassAttendanceCard
+                  key={slot.id}
+                  slot={slot}
+                  subject={subject}
+                  log={log}
+                  onStatusClick={handleStatusClick}
+                />
               );
             })}
           </div>
