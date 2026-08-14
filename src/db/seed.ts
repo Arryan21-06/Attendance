@@ -27,6 +27,8 @@ const initialSlots: TimetableSlot[] = [
   { id: 'slot-mon-6', subjectId: 'sub-sem-lab', dayOfWeek: 1, startTime: '16:00', endTime: '18:00' },
 
   // TUESDAY (2)
+  // NOTE: slot-fri-1 (DS Lab) was moved here from Friday 10:00-12:00 — same id/subjectId preserved for log continuity
+  { id: 'slot-fri-1', subjectId: 'sub-ds-lab', dayOfWeek: 2, startTime: '08:00', endTime: '10:00' },
   { id: 'slot-tue-1', subjectId: 'sub-dsd-lab', dayOfWeek: 2, startTime: '10:00', endTime: '12:00' },
   { id: 'slot-tue-2', subjectId: 'sub-dsd-th', dayOfWeek: 2, startTime: '12:00', endTime: '13:00' },
   { id: 'slot-tue-3', subjectId: 'sub-oop-th', dayOfWeek: 2, startTime: '13:00', endTime: '14:00' },
@@ -43,7 +45,7 @@ const initialSlots: TimetableSlot[] = [
   { id: 'slot-thu-2', subjectId: 'sub-os-lab', dayOfWeek: 4, startTime: '14:00', endTime: '16:00' },
 
   // FRIDAY (5)
-  { id: 'slot-fri-1', subjectId: 'sub-ds-lab', dayOfWeek: 5, startTime: '10:00', endTime: '12:00' },
+  // DS Lab (slot-fri-1) moved to Tuesday 08:00-10:00 above
   { id: 'slot-fri-2', subjectId: 'sub-ds-th', dayOfWeek: 5, startTime: '13:00', endTime: '14:00' },
   { id: 'slot-fri-3', subjectId: 'sub-os-th', dayOfWeek: 5, startTime: '14:00', endTime: '15:00' },
   { id: 'slot-fri-4', subjectId: 'sub-sem-th', dayOfWeek: 5, startTime: '15:00', endTime: '16:00' },
